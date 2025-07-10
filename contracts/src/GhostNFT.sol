@@ -14,4 +14,19 @@ contract GhostNFT is ERC721, ERC721URIStorage, Ownable {
     constructor() ERC721("GhostNFT", "GHOST") {}
     // Add after _tokenIdCounter
 enum GhostType { Phantom, Poltergeist, Wraith, Specter, Ectoshadow }
+
+// Add Ghost struct
+struct Ghost {
+    string name;
+    GhostType ghostType;
+    uint256 power;
+    uint256 charm;
+    uint256 chaos;
+    uint256 birthBlock;
+    bool isPossessing;
+    address possessedWallet;
+}
+
+mapping(uint256 => Ghost) public ghosts;
+mapping(address => uint256[]) public userGhosts;
 }
