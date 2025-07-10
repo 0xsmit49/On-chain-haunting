@@ -12,4 +12,6 @@ contract GhostNFT is ERC721, ERC721URIStorage, Ownable {
     Counters.Counter private _tokenIdCounter;
     
     constructor() ERC721("GhostNFT", "GHOST") {}
+    // Add after _tokenIdCounter
+enum GhostType { Phantom, Poltergeist, Wraith, Specter, Ectoshadow }
 }
