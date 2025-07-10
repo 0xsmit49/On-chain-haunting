@@ -29,4 +29,47 @@ struct Ghost {
 
 mapping(uint256 => Ghost) public ghosts;
 mapping(address => uint256[]) public userGhosts;
+// Add possession tracking
+mapping(address => bool) public isPossessed;
+
+// Add events
+event GhostSummoned(uint256 indexed tokenId, string name, GhostType ghostType);
+event PossessionStarted(uint256 indexed ghostId, address indexed wallet);
+event PossessionEnded(uint256 indexed ghostId, address indexed wallet);
+
+// Add summon function
+function summonGhost(string memory name) external returns (uint256) {
+    uint256 tokenId = _tokenIdCounter.current();
+    _tokenIdCounter.increment();
+    
+    // Generate random traits using block data
+    uint256 randomSeed = uint256(keccak256(abi.encodePacked(
+        block.timestamp,
+        block.difficulty,
+        msg.sender,
+        tokenId
+    )));
+    
+    GhostType ghostType = GhostType(randomSeed % 5);
+    uint256 power = (randomSeed >> 8) % 100 + 1;
+    uint256 charm = (randomSeed >> 16) % 100 + 1;
+    uint256 chaos = (randomSeed >> 24) % 100 + 1;
+    
+    ghosts[tokenId] = Ghost({
+        name: name,
+        ghostType: ghostType,
+        power: power,
+        charm: charm,
+        chaos: chaos,
+        birthBlock: block.number,
+        isPossessing: false,
+        possessedWallet: address(0)
+    });
+    
+    _safeMint(msg.sender, tokenId);
+    userGhosts[msg.sender].push(tokenId);
+    
+    emit GhostSummoned(tokenId, name, ghostType);
+    return tokenId;
+}
 }
