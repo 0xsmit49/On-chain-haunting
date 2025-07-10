@@ -72,4 +72,38 @@ function summonGhost(string memory name) external returns (uint256) {
     emit GhostSummoned(tokenId, name, ghostType);
     return tokenId;
 }
+
+// Add possession management functions
+function startPossession(uint256 ghostId, address wallet) external {
+    require(ownerOf(ghostId) == msg.sender, "Not ghost owner");
+    require(!ghosts[ghostId].isPossessing, "Ghost already possessing");
+    require(!isPossessed[wallet], "Wallet already possessed");
+    
+    ghosts[ghostId].isPossessing = true;
+    ghosts[ghostId].possessedWallet = wallet;
+    isPossessed[wallet] = true;
+    
+    emit PossessionStarted(ghostId, wallet);
+}
+
+function endPossession(uint256 ghostId) external {
+    require(ownerOf(ghostId) == msg.sender, "Not ghost owner");
+    require(ghosts[ghostId].isPossessing, "Ghost not possessing");
+    
+    address wallet = ghosts[ghostId].possessedWallet;
+    ghosts[ghostId].isPossessing = false;
+    ghosts[ghostId].possessedWallet = address(0);
+    isPossessed[wallet] = false;
+    
+    emit PossessionEnded(ghostId, wallet);
+}
+
+function getGhost(uint256 tokenId) external view returns (Ghost memory) {
+    require(_exists(tokenId), "Ghost does not exist");
+    return ghosts[tokenId];
+}
+
+function getUserGhosts(address user) external view returns (uint256[] memory) {
+    return userGhosts[user];
+}
 }
