@@ -10,4 +10,10 @@ contract Fusion is Ownable {
     constructor(address _ghostNFT) {
         ghostNFT = GhostNFT(_ghostNFT);
     }
+
+    // Add after constructor
+mapping(uint256 => bool) public fusionCooldown;
+uint256 public constant COOLDOWN_BLOCKS = 100;
+
+event GhostsFused(uint256 indexed parent1, uint256 indexed parent2, uint256 indexed newGhost);
 }
