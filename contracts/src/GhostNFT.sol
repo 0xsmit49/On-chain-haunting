@@ -106,4 +106,14 @@ function getGhost(uint256 tokenId) external view returns (Ghost memory) {
 function getUserGhosts(address user) external view returns (uint256[] memory) {
     return userGhosts[user];
 }
+
+// Add override functions for ERC721URIStorage
+function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
+    return super.tokenURI(tokenId);
+}
+
+function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+    super._burn(tokenId);
+}
+
 }
