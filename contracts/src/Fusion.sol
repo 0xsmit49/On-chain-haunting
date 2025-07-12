@@ -43,4 +43,10 @@ function fuseGhosts(uint256 ghost1Id, uint256 ghost2Id, string memory newName) e
     emit GhostsFused(ghost1Id, ghost2Id, newGhostId);
     return newGhostId;
 }
+
+// Add cooldown clearing function
+function clearCooldown(uint256 ghostId) external {
+    require(block.number >= ghostNFT.getGhost(ghostId).birthBlock + COOLDOWN_BLOCKS, "Cooldown not expired");
+    fusionCooldown[ghostId] = false;
+}
 }
