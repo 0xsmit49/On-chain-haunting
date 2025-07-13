@@ -15,6 +15,22 @@ const ghostTypes = [
   { name: "Wraith", power: "Soul Binding", effect: "Creates permanent bonds", emoji: "🌫️", color: "text-green-300" }
 ];
 
+// Add animation states
+const [ghostMoving, setGhostMoving] = useState(false);
+
+// Add ghost rotation effect in useEffect
+const ghostInterval = setInterval(() => {
+  setGhostMoving(true);
+  setTimeout(() => {
+    setActiveGhostType((prev) => (prev + 1) % ghostTypes.length);
+    setGhostMoving(false);
+  }, 300);
+}, 4000);
+
+return () => {
+  clearInterval(ghostInterval);
+};
+
 
 
   useEffect(() => {
@@ -27,6 +43,7 @@ const ghostTypes = [
         <MyCustomComponent />
       </div>
       // Add subtitle and grid layout
+      
 <p 
   className="text-lg md:text-xl text-gray-400 mt-6 max-w-3xl mx-auto leading-relaxed"
   style={{ fontFamily: "Holtwood One SC, serif" }}
@@ -37,6 +54,29 @@ const ghostTypes = [
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
   // Ghost animation and properties will go here
 </div>
+// Add left column with ghost animation
+<div className="flex justify-center lg:justify-end">
+  <div className="relative max-w-sm">
+    <div 
+      className={`relative transition-all duration-500 ${ghostHovered ? 'transform scale-110' : ''}`}
+      onMouseEnter={() => setGhostHovered(true)}
+      onMouseLeave={() => setGhostHovered(false)}
+    >
+      <div className={`relative transition-all duration-300 ${
+        ghostMoving ? 'transform -translate-y-2 rotate-6' : 'transform translate-y-0 rotate-0'
+      }`}>
+        <div className={`text-[8rem] md:text-[10rem] transition-all duration-500 ${
+          ghostHovered ? 'animate-bounce' : ''
+        }`}>
+          {ghostTypes[activeGhostType].emoji}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
       <div className="container mx-auto px-6 pt-60 pb-20 relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="text-center mb-16">
