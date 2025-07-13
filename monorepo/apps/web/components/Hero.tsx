@@ -75,7 +75,38 @@ return () => {
   </div>
 </div>
 
+// Add background grid and glow effects
+<div className="absolute inset-0 opacity-10">
+  <div className="h-full w-full" style={{
+    backgroundImage: `
+      linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+    `,
+    backgroundSize: '50px 50px'
+  }} />
+</div>
 
+// Add ghost aura effect
+<div className="absolute inset-0 opacity-20">
+  <div className={`w-full h-full rounded-full blur-2xl transition-all duration-700 ${
+    activeGhostType === 0 ? 'bg-blue-500' :
+    activeGhostType === 1 ? 'bg-purple-500' :
+    activeGhostType === 2 ? 'bg-red-500' : 'bg-green-500'
+  }`} />
+</div>
+
+// Add progress indicators
+<div className="flex justify-center gap-3 mt-6">
+  {ghostTypes.map((_, index) => (
+    <div
+      key={index}
+      className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+        index === activeGhostType ? 'bg-white scale-125' : 'bg-gray-600 hover:bg-gray-400'
+      }`}
+      onClick={() => setActiveGhostType(index)}
+    />
+  ))}
+</div>
 
       <div className="container mx-auto px-6 pt-60 pb-20 relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
