@@ -160,5 +160,44 @@ return () => {
         </div>
       </div>
     </div>
+    // Add button handlers
+const handleSummonGhost = () => {
+  window.location.href = '/summon-ghost';
+};
+
+const handleViewMap = () => {
+  window.location.href = '/map';
+};
+
+// Add action buttons
+<div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+  <button 
+    onClick={handleSummonGhost}
+    className="group px-8 py-4 bg-white text-black font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-base cursor-pointer"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    <span className="group-hover:animate-bounce inline-block mr-2">👻</span>
+    Summon Ghost
+  </button>
+  
+  <button 
+    onClick={handleViewMap}
+    className="group px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-black font-bold rounded-xl transition-all duration-300 transform hover:scale-105 text-base cursor-pointer"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    <span className="group-hover:animate-spin inline-block mr-2">🔮</span>
+    View Map
+  </button>
+</div>
+
+// Add custom CSS
+<style jsx>{`
+  @import url('https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap');
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(1deg); }
+  }
+`}</style>
   );
 }
