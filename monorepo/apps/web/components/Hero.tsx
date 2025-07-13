@@ -107,6 +107,45 @@ return () => {
     />
   ))}
 </div>
+// Add right column with ghost properties
+<div className="flex flex-col justify-center lg:justify-start text-center lg:text-left">
+  <div className={`mb-8 transition-all duration-500 ${ghostMoving ? 'opacity-60' : 'opacity-100'}`}>
+    <h3 
+      className={`text-2xl md:text-3xl font-bold mb-3 transition-all duration-500 ${ghostTypes[activeGhostType].color}`}
+      style={{ fontFamily: "Holtwood One SC, serif" }}
+    >
+      {ghostTypes[activeGhostType].name}
+    </h3>
+    <p 
+      className="text-white text-base md:text-lg mb-3 font-medium"
+      style={{ fontFamily: "Holtwood One SC, serif" }}
+    >
+      {ghostTypes[activeGhostType].power}
+    </p>
+    <p 
+      className="text-gray-400 text-sm md:text-base mb-6"
+      style={{ fontFamily: "Holtwood One SC, serif" }}
+    >
+      {ghostTypes[activeGhostType].effect}
+    </p>
+    
+    {/* Ghost Stats */}
+    <div className="flex justify-center lg:justify-start gap-6 mb-8">
+      <div className="text-center">
+        <div className="text-lg font-bold text-white" style={{ fontFamily: "Holtwood One SC, serif" }}>85%</div>
+        <div className="text-xs text-gray-400" style={{ fontFamily: "Holtwood One SC, serif" }}>Haunting</div>
+      </div>
+      <div className="text-center">
+        <div className="text-lg font-bold text-white" style={{ fontFamily: "Holtwood One SC, serif" }}>92%</div>
+        <div className="text-xs text-gray-400" style={{ fontFamily: "Holtwood One SC, serif" }}>Mischief</div>
+      </div>
+      <div className="text-center">
+        <div className="text-lg font-bold text-white" style={{ fontFamily: "Holtwood One SC, serif" }}>78%</div>
+        <div className="text-xs text-gray-400" style={{ fontFamily: "Holtwood One SC, serif" }}>Charisma</div>
+      </div>
+    </div>
+  </div>
+</div>
 
       <div className="container mx-auto px-6 pt-60 pb-20 relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
