@@ -49,6 +49,93 @@ const handleSubscribe = () => {
     </div>
   </div>
 </div>
+// Add Ghost Features section
+<div>
+  <h4 
+    className="text-lg font-semibold text-white mb-6"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    Ghost Features
+  </h4>
+  <ul className="space-y-3">
+    <li>
+      <a 
+        href="/summon-ghost" 
+        className="text-gray-300 hover:text-purple-300 transition-colors flex items-center gap-2 group"
+        style={{ fontFamily: "Holtwood One SC, serif" }}
+      >
+        <span className="group-hover:animate-bounce">👻</span>
+        Summon Ghosts
+      </a>
+    </li>
+    <li>
+      <a 
+        href="/map" 
+        className="text-gray-300 hover:text-purple-300 transition-colors flex items-center gap-2 group"
+        style={{ fontFamily: "Holtwood One SC, serif" }}
+      >
+        <span className="group-hover:animate-spin">🗺️</span>
+        Haunting Map
+      </a>
+    </li>
+    <li>
+      <a 
+        href="/meme-mating" 
+        className="text-gray-300 hover:text-purple-300 transition-colors flex items-center gap-2 group"
+        style={{ fontFamily: "Holtwood One SC, serif" }}
+      >
+        <span className="group-hover:animate-pulse">💞</span>
+        Meme Mating
+      </a>
+    </li>
+  </ul>
+</div>
+
+// Add Ghost Types section
+<div>
+  <h4 
+    className="text-lg font-semibold text-white mb-6"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    Ghost Types
+  </h4>
+  <ul className="space-y-3">
+    <li className="flex items-center gap-3">
+      <span className="text-2xl">👻</span>
+      <div>
+        <div 
+          className="text-blue-300 font-medium"
+          style={{ fontFamily: "Holtwood One SC, serif" }}
+        >
+          Whisper
+        </div>
+        <div 
+          className="text-xs text-gray-400"
+          style={{ fontFamily: "Holtwood One SC, serif" }}
+        >
+          Silent Possession
+        </div>
+      </div>
+    </li>
+    <li className="flex items-center gap-3">
+      <span className="text-2xl">🔮</span>
+      <div>
+        <div 
+          className="text-purple-300 font-medium"
+          style={{ fontFamily: "Holtwood One SC, serif" }}
+        >
+          Poltergeist
+        </div>
+        <div 
+          className="text-xs text-gray-400"
+          style={{ fontFamily: "Holtwood One SC, serif" }}
+        >
+          Asset Disruption
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
       <div className="relative z-10 container mx-auto px-6 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Section */}
