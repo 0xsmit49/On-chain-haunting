@@ -155,6 +155,81 @@ const handleSubscribe = () => {
           </div>
         </div>
       </div>
+      // Add SubtleGrid component
+const SubtleGrid = () => (
+  <div className="absolute inset-0 opacity-5">
+    <svg width="100%" height="100%" className="absolute inset-0">
+      <defs>
+        <pattern
+          id="footergrid"
+          width="40"
+          height="40"
+          patternUnits="userSpaceOnUse"
+        >
+          <path
+            d="M 40 0 L 0 0 0 40"
+            fill="none"
+            stroke="rgb(147 51 234 / 0.3)"
+            strokeWidth="0.5"
+          />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#footergrid)" />
+    </svg>
+  </div>
+);
+
+// Add background elements
+<div className="absolute inset-0">
+  <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-950" />
+  <SubtleGrid />
+  
+  {/* Floating Ghost Particles */}
+  <div className="absolute inset-0 pointer-events-none">
+    {[...Array(8)].map((_, i) => (
+      <div
+        key={i}
+        className="absolute text-2xl opacity-10 floating-ghost"
+        style={{
+          left: `${10 + (i * 12)}%`,
+          top: `${20 + (i % 4) * 20}%`,
+          animationDelay: `${i * 0.8}s`,
+          animationDuration: `${4 + (i % 3)}s`
+        }}
+      >
+        {['👻', '🔮', '💀', '🌫️', '⚡', '🔥', '🌙', '✨'][i]}
+      </div>
+    ))}
+  </div>
+</div>
+
+// Add animations in style tag
+<style jsx>{`
+  @import url('https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap');
+  
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .gradient-text {
+    background: linear-gradient(-45deg, #8b5cf6, #a78bfa, #c4b5fd, #8b5cf6);
+    background-size: 400% 400%;
+    animation: gradient-shift 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+  }
+  
+  .floating-ghost {
+    animation: float 4s ease-in-out infinite;
+  }
+`}</style>
     </footer>
   );
 };
