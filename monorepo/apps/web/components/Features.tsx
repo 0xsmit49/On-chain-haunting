@@ -12,6 +12,21 @@ const FeaturesSection = () => {
   const handleCardClick = (id) => {
     setActiveCard(activeCard === id ? null : id);
   };
+// Add mouse tracking in useEffect
+useEffect(() => {
+  setIsVisible(true);
+  
+  const handleMouseMove = (e) => {
+    setMousePosition({
+      x: (e.clientX / window.innerWidth) * 100,
+      y: (e.clientY / window.innerHeight) * 100,
+    });
+  };
+
+  window.addEventListener('mousemove', handleMouseMove);
+  return () => window.removeEventListener('mousemove', handleMouseMove);
+}, []);
+
 
  // Add complete features array
 const features = [
@@ -177,6 +192,151 @@ const getColorClasses = (color) => {
         </div>
       </div>
     </section>
+    // Add background effects
+<div className="absolute inset-0 opacity-5">
+  <div className="h-full w-full" style={{
+    backgroundImage: `
+      linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+    `,
+    backgroundSize: '100px 100px'
+  }} />
+</div>
+
+{/* Floating Ghost Particles */}
+<div className="absolute inset-0 pointer-events-none">
+  {[...Array(6)].map((_, i) => (
+    <div
+      key={i}
+      className="absolute text-4xl opacity-10 animate-pulse"
+      style={{
+        left: `${20 + (i * 15)}%`,
+        top: `${10 + (i % 3) * 30}%`,
+        animationDelay: `${i * 0.5}s`,
+        animationDuration: `${3 + (i % 3)}s`
+      }}
+    >
+      {['👻', '🔮', '💀', '🌫️', '⚡', '🔥'][i]}
+    </div>
+  ))}
+</div>
+
+// Add complete features grid with expandable details
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+  {features.map((feature, index) => {
+    const colorClasses = getColorClasses(feature.color);
+    const isActive = activeCard === feature.id;
+    
+    return (
+      <div
+        key={feature.id}
+        className={`relative group cursor-pointer transition-all duration-500 transform ${
+          isActive ? 'scale-105 z-10' : 'hover:scale-102'
+        } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        style={{ transitionDelay: `${index * 100}ms` }}
+        onClick={() => handleCardClick(feature.id)}
+      >
+        <div className={`
+          relative bg-gray-900/80 backdrop-blur-sm rounded-2xl p-8 
+          border-2 ${colorClasses.border} ${colorClasses.hover}
+          transition-all duration-500 h-full
+          ${isActive ? `${colorClasses.bg} shadow-2xl ${colorClasses.glow}` : 'hover:bg-gray-800/50'}
+        `}>
+          
+          <div className="text-6xl mb-6 text-center transform transition-all duration-300 group-hover:scale-110">
+            {feature.emoji}
+          </div>
+
+          <h3 
+            className={`text-2xl font-bold mb-3 text-center ${colorClasses.text}`}
+            style={{ fontFamily: "Holtwood One SC, serif" }}
+          >
+            {feature.title}
+          </h3>
+
+          <h4 
+            className="text-lg text-white mb-4 text-center font-medium"
+            style={{ fontFamily: "Holtwood One SC, serif" }}
+          >
+            {feature.subtitle}
+          </h4>
+
+          <p 
+            className="text-gray-300 text-center mb-6 leading-relaxed"
+            style={{ fontFamily: "Holtwood One SC, serif" }}
+          >
+            {feature.description}
+          </p>
+
+          {/* Expandable Details */}
+          <div className={`transition-all duration-500 overflow-hidden ${
+            isActive ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+            <div className="border-t border-gray-700 pt-6 mb-6">
+              <h5 className="text-white font-bold mb-4 text-center" style={{ fontFamily: "Holtwood One SC, serif" }}>
+                Key Features:
+              </h5>
+              <ul className="space-y-3">
+                {feature.details.map((detail, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className={`${colorClasses.text} text-sm mt-1`}>▪</span>
+                    <span 
+                      className="text-gray-300 text-sm leading-relaxed"
+                      style={{ fontFamily: "Holtwood One SC, serif" }}
+                    >
+                      {detail}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                window.location.href = feature.link;
+              }}
+              className={`
+                px-6 py-3 rounded-xl font-bold transition-all duration-300 
+                transform hover:scale-105 border-2 ${colorClasses.border} 
+                ${colorClasses.text} hover:bg-white hover:text-black
+                ${isActive ? 'animate-pulse' : ''}
+              `}
+              style={{ fontFamily: "Holtwood One SC, serif" }}
+            >
+              {feature.cta} →
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+// Add bottom CTA
+<div className={`text-center mt-16 transition-all duration-1000 delay-500 ${
+  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+}`}>
+  <p 
+    className="text-gray-400 text-lg mb-8"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    Ready to enter the supernatural realm?
+  </p>
+  <button
+    onClick={() => window.location.href = '/summon-ghost'}
+    className="px-12 py-4 bg-white text-black font-bold rounded-xl text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    Start Your Ghostly Journey
+  </button>
+</div>
+
+<style jsx>{`
+  @import url('https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap');
+`}</style>
   );
 };
 
