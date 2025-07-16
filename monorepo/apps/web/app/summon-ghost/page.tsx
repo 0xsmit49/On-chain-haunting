@@ -140,6 +140,118 @@ const generateRandomGhost = (): GhostMetadata => {
           ))}
         </div>
       )}
+      // Add naming step with ghost stats display
+{step === 'naming' && summonedGhost && (
+  <motion.div
+    key="naming"
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.8 }}
+    className="text-center"
+  >
+    <div className="bg-gray-900 rounded-2xl p-8 border border-gray-700 max-w-2xl mx-auto">
+      <div className="text-6xl mb-6">{summonedGhost.emoji}</div>
+      
+      <h2 
+        className="text-3xl text-white mb-4 font-bold"
+        style={{ fontFamily: "Holtwood One SC, serif" }}
+      >
+        A {summonedGhost.type} Has Been Summoned!
+      </h2>
+      
+      <div className={`text-xl mb-6 ${ghostTypes.find(g => g.type === summonedGhost.type)?.color}`}>
+        {summonedGhost.backstory}
+      </div>
+
+      <div className="mb-8">
+        <label className="block text-white text-lg mb-3 font-bold">
+          Name Your Ghost:
+        </label>
+        <input
+          type="text"
+          value={ghostName}
+          onChange={(e) => setGhostName(e.target.value)}
+          placeholder="Enter ghost name..."
+          className="w-full px-4 py-3 bg-black border border-gray-600 rounded-lg text-white text-center text-xl focus:border-white focus:outline-none"
+          style={{ fontFamily: "Holtwood One SC, serif" }}
+        />
+      </div>
+
+      <button
+        onClick={handleNameGhost}
+        disabled={!ghostName.trim()}
+        className={`px-12 py-4 font-bold rounded-xl text-xl transition-all duration-300 ${
+          ghostName.trim() 
+            ? 'bg-white text-black hover:scale-105' 
+            : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+        }`}
+        style={{ fontFamily: "Holtwood One SC, serif" }}
+      >
+        Bind Ghost Spirit
+      </button>
+    </div>
+  </motion.div>
+)}
+
+// Add naming handler
+const handleNameGhost = () => {
+  if (summonedGhost && ghostName.trim()) {
+    const namedGhost = {
+      ...summonedGhost,
+      name: ghostName.trim()
+    };
+    setSummonedGhost(namedGhost);
+    setStep('complete');
+  }
+};
+
+// Add complete step with full stats display
+{step === 'complete' && summonedGhost && (
+  <motion.div
+    key="complete"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    className="text-center"
+  >
+    <div className="bg-gray-900 rounded-2xl p-8 border border-green-500 max-w-3xl mx-auto">
+      <div className="text-6xl mb-6">{summonedGhost.emoji}</div>
+      
+      <h2 
+        className="text-4xl text-green-400 mb-4 font-bold"
+        style={{ fontFamily: "Holtwood One SC, serif" }}
+      >
+        {summonedGhost.name} Successfully Summoned!
+      </h2>
+
+      {/* Ghost Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <div className="text-center">
+          <div className="text-2xl font-bold text-white">{summonedGhost.haunting}%</div>
+          <div className="text-sm text-gray-400">Haunting</div>
+        </div>
+        <div className="text-center">
+          <div className="text-2xl font-bold text-white">{summonedGhost.mischief}%</div>
+          <div className="text-sm text-gray-400">Mischief</div>
+        </div>
+        <div className="text-center">
+          <div className="text-2xl font-bold text-white">{summonedGhost.charisma}%</div>
+          <div className="text-sm text-gray-400">Charisma</div>
+        </div>
+        <div className="text-center">
+          <div className={`text-lg font-bold ${
+            summonedGhost.rarity === 'Legendary' ? 'text-yellow-400' :
+            summonedGhost.rarity === 'Epic' ? 'text-purple-400' :
+            summonedGhost.rarity === 'Rare' ? 'text-blue-400' : 'text-gray-400'
+          }`}>
+            {summonedGhost.rarity}
+          </div>
+          <div className="text-sm text-gray-400">Rarity</div>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+)}
 
       {/* Add summoning animation step */}
       {step === 'summoning' && (
