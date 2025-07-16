@@ -252,6 +252,81 @@ const handleNameGhost = () => {
     </div>
   </motion.div>
 )}
+// Add collection state
+const [ghostCollection, setGhostCollection] = useState<GhostMetadata[]>([]);
+
+// Add localStorage hooks
+useEffect(() => {
+  const savedGhosts = localStorage.getItem('ghostCollection');
+  if (savedGhosts) {
+    setGhostCollection(JSON.parse(savedGhosts));
+  }
+}, []);
+
+useEffect(() => {
+  localStorage.setItem('ghostCollection', JSON.stringify(ghostCollection));
+}, [ghostCollection]);
+
+// Update naming handler to save to collection
+const handleNameGhost = () => {
+  if (summonedGhost && ghostName.trim()) {
+    const namedGhost = {
+      ...summonedGhost,
+      name: ghostName.trim()
+    };
+    setSummonedGhost(namedGhost);
+    
+    // Add to collection
+    setGhostCollection(prev => [...prev, namedGhost]);
+    
+    setStep('complete');
+  }
+};
+
+// Add collection navigation handlers
+const handleSummonAnother = () => {
+  setStep('ready');
+  setSummonedGhost(null);
+  setGhostName('');
+  setRitualCircleRotation(0);
+};
+
+const handleViewCollection = () => {
+  setStep('collection');
+};
+
+const handleBackToSummon = () => {
+  setStep('ready');
+};
+
+// Add collection view button to ready step
+{ghostCollection.length > 0 && (
+  <button
+    onClick={handleViewCollection}
+    className="px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-black font-bold rounded-xl text-lg transition-all duration-300 hover:scale-105"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    View My Ghosts ({ghostCollection.length})
+  </button>
+)}
+
+// Add buttons to complete step
+<div className="flex flex-col sm:flex-row gap-4 justify-center">
+  <button
+    onClick={handleSummonAnother}
+    className="px-8 py-4 bg-white text-black font-bold rounded-xl text-lg transition-all duration-300 hover:scale-105"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    Summon Another
+  </button>
+  <button
+    onClick={handleViewCollection}
+    className="px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-black font-bold rounded-xl text-lg transition-all duration-300 hover:scale-105"
+    style={{ fontFamily: "Holtwood One SC, serif" }}
+  >
+    View My Collection ({ghostCollection.length})
+  </button>
+</div>
 
       {/* Add summoning animation step */}
       {step === 'summoning' && (
