@@ -22,6 +22,101 @@ export default function SummonGhost() {
   const [step, setStep] = useState<'ready' | 'summoning' | 'minting' | 'naming' | 'complete' | 'collection'>('ready');
   const [summonedGhost, setSummonedGhost] = useState<GhostMetadata | null>(null);
   const [ghostName, setGhostName] = useState('');
+  // Add minting states
+const [mintingProgress, setMintingProgress] = useState(0);
+const [mintingStage, setMintingStage] = useState('');
+
+// Add minting simulation
+useEffect(() => {
+  if (step === 'minting') {
+    const stages = [
+      { stage: 'Preparing transaction...', progress: 0 },
+      { stage: 'Validating ghost essence...', progress: 20 },
+      { stage: 'Generating metadata...', progress: 40 },
+      { stage: 'Uploading to IPFS...', progress: 60 },
+      { stage: 'Confirming on blockchain...', progress: 80 },
+      { stage: 'Finalizing mint...', progress: 100 }
+    ];
+
+    let currentStageIndex = 0;
+    const interval = setInterval(() => {
+      if (currentStageIndex < stages.length) {
+        setMintingStage(stages[currentStageIndex].stage);
+        setMintingProgress(stages[currentStageIndex].progress);
+        currentStageIndex++;
+      } else {
+        clearInterval(interval);
+        setStep('naming');
+      }
+    }, 800);
+
+    return () => clearInterval(interval);
+  }
+}, [step]);
+
+// Add minting step
+{step === 'minting' && (
+  <motion.div
+    key="minting"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="text-center"
+  >
+    <div className="bg-gray-900 rounded-2xl p-8 border border-blue-500 max-w-2xl mx-auto">
+      <div className="text-6xl mb-6">⚡</div>
+      
+      <h2 
+        className="text-3xl text-blue-400 mb-6 font-bold"
+        style={{ fontFamily: "Holtwood One SC, serif" }}
+      >
+        Minting Your Ghost NFT
+      </h2>
+
+      {/* Progress Bar */}
+      <div className="mb-6">
+        <div className="w-full bg-gray-700 rounded-full h-4 mb-4">
+          <motion.div 
+            className="bg-blue-500 h-4 rounded-full"
+            initial={{ width: '0%' }}
+            animate={{ width: `${mintingProgress}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+        <div className="text-blue-400 text-lg font-bold mb-2">{mintingProgress}%</div>
+        <div className="text-gray-400">{mintingStage}</div>
+      </div>
+
+      {/* Transaction Details */}
+      <div className="bg-black rounded-lg p-4 border border-gray-700 text-left">
+        <div className="text-sm text-gray-400 mb-1">Transaction Hash:</div>
+        <div className="text-xs text-blue-400 mb-3 font-mono break-all">
+          {summonedGhost?.txHash}
+        </div>
+        <div className="text-sm text-gray-400 mb-1">Network:</div>
+        <div className="text-xs text-white mb-3">Ethereum Mainnet</div>
+        <div className="text-sm text-gray-400 mb-1">Gas Price:</div>
+        <div className="text-xs text-green-400">0 ETH (Gasless)</div>
+      </div>
+    </div>
+  </motion.div>
+)}
+
+// Update summoning handler to reset minting states
+const handleSummonGhost = () => {
+  setStep('summoning');
+  setIsAnimating(true);
+  
+  // Simulate summoning ritual
+  setTimeout(() => {
+    const newGhost = generateRandomGhost();
+    setSummonedGhost(newGhost);
+    setStep('minting');
+    setIsAnimating(false);
+    setMintingProgress(0);
+    setMintingStage('');
+  }, 4000);
+};
 
   // Add animation states
   const [isAnimating, setIsAnimating] = useState(false);
