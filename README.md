@@ -1,301 +1,187 @@
-# MetaMiles
+## 👻 Introduction
 
-Please do visit our [docs](https://smits-organization-1.gitbook.io/metamiles)
-Website hosted at [MetaMiles](https://meta-miles.vercel.app/)
-
-![Screenshot from 2025-07-03 21-07-57](https://github.com/user-attachments/assets/8b863218-18b6-449f-ac1f-18d50c19b837)
-
----
-
-## Introduction
-
-
-As MetaMask Card brings crypto spending to the real world, users need more than just payments — they need a **smart, rewarding experience** built around how and where they spend.
-
-**MetaMiles** is a modular, onchain rewards engine designed to turn every MetaMask Card transaction into meaningful perks, insights, and status. Whether it’s unlocking event tickets, food discounts, or NFT-based merchandise, MetaMiles transforms proof of spend into real-world value.
-
-
-![Screenshot from 2025-07-03 21-59-58](https://github.com/user-attachments/assets/7ef7313c-585a-48d9-bf58-8258b82c027a)
-
-
-Built for MetaMask Card users, MetaMiles enables:
-
- **Spending Analytics** – Track and visualize your card payments with real-time dashboards
- **Tiered Rewards** – Progress through Bronze, Silver, and Gold tiers based on monthly card spend
- **Perk Unlocks** – Get token-gated access to localized drops, discounts, and exclusive events
- **Cross-Chain Flexibility** – Thanks to **LI.FI SDK** and **Circle CCTP**, users can bridge rewards and redeem perks across chains effortlessly
-
-All rewards are claimable via a smooth, gas-efficient onchain flow — and optional **zero-knowledge proofs** ensure users can prove eligibility (e.g., "I spent \$500 this month") **without revealing full payment data**, preserving flexibility and privacy where needed.
-
----
-
-
-##  Meet James – Just Another Crypto User... Until MetaMiles
-
-James is your typical Web3 native. He buys NFTs, swaps tokens, earns yield in DeFi. But when it comes to everyday spending — groceries, coffee, concert tickets — it's always the same: money goes out… and that's it.
-
-### Then James Gets the MetaMask Card.
-
-It’s sleek. It connects directly to his MetaMask wallet.
-**And with MetaMiles, something amazing happens:**
-
- **Every swipe becomes a gateway to something more.**
-
-*  James spends \$200 on flight tickets → He unlocks early access to a music festival
-* He grabs coffee every morning → MetaMiles gives him discounts at his favorite café
-* He shops online for a gift → Boom, he earns exclusive DAO merch
-
-###  And the Best Part?
-
-He never shares private data.
-MetaMiles uses **Zero-Knowledge Proofs** — so James can prove he spent over a threshold like **\$500** without showing a single transaction.
-
- No forms
- No tracking
-Just verified, private, onchain proof that unlocks perks
-
----
-
-##  One Month Later…
-
-James gets a ping from MetaMiles:
-
-> “You’ve hit **Gold Tier!**
-> Claim your bonus airdrop + 25% off your next event ticket.”
-
-He smiles.
-For the first time, his everyday spending is **rewarding him in the real world** — without selling his soul to ads, apps, or middlemen.
-
----
-
-##  What James Found in MetaMiles:
-
- **Real-world rewards** for onchain users
-**Privacy by default**
-**Perks tailored to his lifestyle and location**
-
-A system that speaks Web3 — no banks, no nonsense
-
-Now James tells every crypto friend:
-
-> **“If you’re using MetaMask, and not using the card with MetaMiles…
-> you’re literally leaving rewards on the table.”**
+**On-Chain Haunting** is a surreal, ghost-themed PvP game built fully on-chain using **Etherlink**. Players summon unique ghost NFTs, possess other wallets by solving riddles, and fuse ghosts to create bizarre new hybrids. It's a chaotic, evolving playground that blends DeFi mechanics with meme energy — fast, cheap, and fully on Etherlink L2.
 
 
 ---
 
-## **User Flow – MetaMiles Spend-to-Reward Journey**
+## 🧩 Core Gameplay Mechanics
 
-### 1. Onboarding
+**On-Chain Haunting** is designed like a living, meme-powered spirit world. Here's how players interact:
 
-* User visits the MetaMiles dApp
-* Connects MetaMask Wallet via MetaMask SDK
-* Verifies MetaMask Card ownership using a signed message
-* Optionally enrolls in Circle Wallet for reward custody or delivery
+* **👻 Summon Ghosts**
+  Players mint ghost NFTs, each with unique traits and personalities — from spooky Wraiths to charming Poltergeists.
 
-### 2. Spending & Tracking
+* **🗺️ Explore the Map**
+  A map shows all active ghosts and hauntings. Players can view random ghosts, attempt riddles to possess them, or just watch the chaos unfold.
 
-* User makes purchases using the MetaMask Card
-* Spend data is securely retrieved via Chainlink Functions
-* An on-chain SpendTracker Contract is updated with the total spend amount
-* No transaction-level data is stored on-chain, preserving privacy
+* **💀 Possess or Get Possessed**
+  Solve a riddle tied to a ghost to gain control of it. Fail, and the ghost gets stronger. Possessed ghosts can be used to haunt wallets or battle others.
 
+* **💞 Ghost Mating**
+  During Meme Mating Season, two ghosts can fuse into a new hybrid spirit. The offspring inherits randomized traits and sometimes unlocks weird new powers.
 
-![Screenshot from 2025-07-03 22-00-25](https://github.com/user-attachments/assets/ff231194-9edf-4bd3-a02e-00eced234243)
+* **🎭 Social Possession**
+  Ghosts can “possess” real wallet addresses, causing small UI glitches or game effects. Other players can see and exorcise these hauntings for points.
 
-
-### 3. Proof Generation (Zero-Knowledge)
-
-* User opens the MetaMiles dApp to claim eligible rewards
-* A zero-knowledge circuit runs locally in the browser
-
-  * Example: “Prove I’ve spent more than \$X this month”
-* A ZK-SNARK proof is generated using the user’s pseudonymous identity
-* The proof is submitted on-chain to the ZKVerifier Contract
-
-### 4. Reward Unlock on Circle
-
-* The ZKVerifier smart contract confirms the proof is valid
-* A Soulbound NFT is minted to represent the user’s current tier (Bronze, Silver, Gold)
-* Based on the tier, users gain access to:
-
-  * Token-gated event ticketing
-  * Real-world discounts (via QR/NFC or digital pass)
-  * Exclusive merch, airdrops, or DAO perks
-
-![Screenshot from 2025-07-04 09-49-56](https://github.com/user-attachments/assets/99b233bc-3d7b-4147-ae9c-5e33d3cd784f)
-
-
-
-### 5. Cross-Chain and Custody
-
-* If a reward exists on a different chain:
-
-  * The LI.FI SDK is used to bridge rewards cross-chain
-  * Circle’s CCTP V2 facilitates secure asset transfer
-* Reward is delivered to the user’s preferred destination chain
-
-
-![Screenshot from 2025-07-03 22-04-48](https://github.com/user-attachments/assets/698afeb6-a9fe-4e80-883a-df49257b0cfd)
-
-
-### 6. Ongoing Use
-
-* Spend tracking resets monthly (or on a rolling basis)
-* Users repeat the cycle: spend → prove → unlock
-* The MetaMiles dashboard displays:
-
-  * Tier progress
-  * Claimable rewards
-  * Reward history and streaks
-
----
-
-## **Partner Flow – How Brands, DAOs, and Events Integrate**
-
-### 1. Partner Onboarding
-
-* Partner (brand, DAO, festival, e-commerce platform) visits the **MetaMiles Partner Portal**
-* Registers as a verified reward provider
-* Sets up organization profile, including region, category, and contact details
-
-![Screenshot from 2025-07-03 22-01-04](https://github.com/user-attachments/assets/531d0383-4d9d-4075-9c89-43bd852b59c8)
-
-
-### 2. Perk Configuration
-
-* Partner defines region-specific and tier-based rewards
-
-  * Example: “Users in NYC who spend \$200+ unlock a backstage concert pass”
-* Uploads reward inventory:
-
-  * NFT reward tokens
-  * NFC/QR unlock codes for in-person experiences
-  * Airdrops, merch coupons, or gated Discord invites
-* Sets eligibility thresholds and maps to reward tiers: Bronze / Silver / Gold
-
-### 3. Integration & Monitoring
-
-* Uses **MetaMiles SDK** to:
-
-  * Validate wallet tier and region eligibility
-  * Programmatically issue or mint rewards
-  * Track redemptions, availability, and user interaction
-
-### 4. Cross-Chain Ready
-
-* Rewards can be distributed across chains using:
-
-  * **LI.FI SDK** 
-  * **Circle CCTP v2** 
-* Ensures seamless user experience regardless of user chain preferences
-
-### 5. Insights & Loyalty Analytics
-
-* Access to the **Partner Dashboard** for ongoing intelligence:
-
-  * Engagement data by region, time, and tier
-  * Most redeemed rewards and user retention stats
-  * Redemption conversion funnel
-
-
-   ![Screenshot from 2025-07-03 22-07-42](https://github.com/user-attachments/assets/b2c689c3-6354-4c93-b5ef-55ab5156ae99)
-
-
-* Future loyalty extensions:
-
-  * Trigger additional perks for Gold-tier streaks
-  * Airdrop collectibles for highly engaged users
-  * Enable DAO governance access based on spend-tier NFTs
+* **🏆 Chaos Points & Leaderboards**
+  All actions — summoning, possessing, fusing — earn Chaos Points. The top ghosts and players rise in rank... or haunt the leaderboard forever.
 
 ---
 
 
-##  **Scalability & Future Roadmap**
+## 👻 Ghost Classes & Traits
 
-### **Phase 1: Launch & Core Platform**
+Every ghost in **On-Chain Haunting** is unique — but they fall into different **classes** and come with randomized **traits** that directly impact gameplay.
 
-**Timeline:** *July 3 – August 31, 2025*
+### 🏷️ Ghost Classes
 
-* MetaMiles v1 launches with MetaMask Card spend tracking
-* ZK proof system operational for private spend verification
-* Tier-based IRL reward system live (Bronze/Silver/Gold NFTs)
-* Initial brand/DAO partners integrated in pilot cities
+Ghosts belong to different supernatural types, each with distinct vibes and behaviors:
 
----
-
-### **Phase 2: Localized Campaigns**
-
-**Timeline:** *September 1 – October 15, 2025*
-
-* Regional event-based campaigns go live:
-
-  * “**OnChain Diwali**” with Indian merchants
-  * “**NYC Art Week**” with art-based NFTs and IRL tickets
-* Time zone-aware and merchant-specific reward logic enabled
-* Launch regionalized UI/UX flows
+* **Wraith** – Fast and slippery. Great at possession, harder to exorcise.
+* **Poltergeist** – Aggressive and chaotic. Can overpower weaker ghosts.
+* **Banshee** – High riddle difficulty. Loud, unpredictable energy.
+* **Specter** – Balanced ghost type, good for fusion or utility.
+* **Phantom** – Rare and mysterious. Sometimes immune to possession.
 
 ---
 
-### **Phase 3: Merchant & DAO Expansion**
+### 🧬 Core Traits (randomly generated at mint)
 
-**Timeline:** *October 16 – December 15, 2025*
+Each ghost has 3–5 traits that influence gameplay:
 
-* Self-serve **Partner Dashboard** launches
-* Open onboarding for:
+| Trait                 | What It Affects                                        |
+| --------------------- | ------------------------------------------------------ |
+| **Mischief**          | Increases possession success rate                      |
+| **Haunting Power**    | Makes exorcisms harder                                 |
+| **Charisma**          | Helps in ghost mating/fusion outcomes                  |
+| **Riddle Resistance** | Makes it harder for others to steal/possess your ghost |
+| **Chaos Factor**      | Boosts point gain from interactions                    |
 
-  * Local merchants, stores, cafes
-  * DAOs offering gated perks or regional rewards
-* Insights dashboard for partners:
 
-  * Redemption metrics, top-tier earners, campaign ROI
-
----
-
-### **Phase 4: Advanced Rewards & Loyalty Mechanics**
-
-**Timeline:** *December 16, 2025 – February 28, 2026*
-
-* Introduce **staking-based multipliers**: stake USDC/ETH to boost spend rewards
-* Launch **Loyalty Badges** (Soulbound NFTs) as proof-of-spend collectibles
-* Soulbound perks:
-
-  * Lifetime discounts
-  * Discord roles
-  * VIP access to events
 
 ---
 
-### **Phase 5: Developer SDK + Ecosystem Tools**
+## 🧠 Possessing Wallets
 
-**Timeline:** *March 1 – May 30, 2026*
+One of the most chaotic and creative features of **On-Chain Haunting** is the ability to **possess wallets** using your ghosts.
 
-* Release **MetaMiles SDK** for:
+### How it works:
 
-  * eCommerce platforms
-  * Ticketing sites
-  * Wallet apps
-* Enable token-gated checkout buttons, claim flows, and campaign automation
-* Public APIs for:
+* On the map, players can view **random ghost avatars** wandering.
+* To possess one, you must **solve a riddle** tied to that ghost’s traits.
+* If correct — that ghost is now **under your control**, and the wallet it’s bound to becomes **"haunted"**.
+* If wrong — the ghost becomes **stronger**, gaining extra resistance and traits.
 
-  * Reward inventory upload
-  * Region + tier logic configuration
-  * User verification & claiming
+### What possession does:
+
+* Possessed wallets may experience **visual glitches**, slower UI, or other strange effects in-game.
+* They become **targets for exorcism or challenges** from other players.
+* The longer a possession lasts, the more **Chaos Points** the ghost owner earns.
+
+It’s PvP... with paranormal energy.
 
 ---
 
-## Contact Us
+## 💞 Meme Mating: Ghost Fusion
 
-Have questions, want to partner, or just curious about MetaMiles?
-We’d love to hear from you.
+In **Meme Mating Season**, ghosts don’t just haunt — they fall in love (or at least, merge into strange hybrids).
 
-* **Email:** [bafnasmit@gmail.com](mailto:bafnasmit@gmail.com)
-* **Twitter/X:** [@bafnasmit\_49](https://x.com/bafnasmit_49)
-* **LinkedIn:** [Smit Bafna](https://www.linkedin.com/in/smit-bafna-bb99372a3/)
+### How it works:
+
+* Select **two ghosts** from your collection.
+* If they’re compatible, they enter a fusion ritual.
+* The result is a **brand new ghost** — an “Ectoshadow Baby” — with blended traits and a random class.
+
+### Why it’s fun:
+
+* Fused ghosts can inherit rare combinations of powers.
+* Some combos unlock **secret traits** or aesthetic variations.
+* Breeding becomes a strategy — not just for rarity, but for building powerful haunting lineups.
+
+It’s like Pokémon breeding, but with haunted vibes.
+
+---
+
+
+
+## 🎮 How to Play On-Chain Haunting
+
+**On-Chain Haunting** is a ghost-themed, fully on-chain PvP strategy game built on Etherlink. Your goal: summon, haunt, possess, fuse, and dominate the map through chaos.
+
+### 🧙‍♂️ 1. Summon Your Ghosts
+
+* Click **“Summon Ghost”**
+* Enter a name (this goes on-chain!)
+* You’ll receive a unique NFT ghost with:
+
+  * A **class** (e.g., Banshee, Wraith, Poltergeist)
+  * **Traits** like Mischief, Charisma, Chaos Factor, etc.
+
+> All ghosts are stored on-chain and tradable.
+
+---
+
+### 🗺️ 2. Explore the Map
+
+* Head to the **Map View**
+* See ghosts and wallets scattered across the world
+* Click on any ghost to try and **possess** it
+
+---
+
+### 🧩 3. Solve Riddles, Possess Ghosts
+
+* To possess a ghost: solve its riddle based on its traits
+* If correct: you control that ghost and its associated wallet
+* If wrong: the ghost levels up and becomes harder to catch
+
+> Possessed wallets may suffer strange effects — slower UI, visual glitches, etc.
+
+---
+
+### 💞 4. Fuse Your Ghosts (Meme Mating)
+
+* Select two ghosts from your collection
+* Click **“Fuse”**
+* Watch them blend into a new ghost — an “Ectoshadow Baby” with hybrid traits
+
+> Some rare combinations unlock secret abilities or powerful PvP bonuses.
+
+---
+
+### 🎯 5. Earn Chaos Points
+
+* Every action earns points:
+
+  * Successful possession
+  * Defending your ghosts
+  * Mating rare combos
+  * Exorcising enemy ghosts
+
+* Climb the **Haunting Leaderboard** and show who’s the ultimate spirit master
 
 ---
 
 
 
 
+
+## ⚡ How Etherlink Enables This
+
+**On-Chain Haunting** is only possible because of Etherlink’s core strengths:
+
+* **🧠 Smart Contract Logic Runs Smoothly**
+  All ghost actions — summoning, fusing, possession attempts, and exorcisms — happen directly on-chain. Etherlink’s fast finality ensures a smooth experience even with multiple interactions per minute.
+
+* **💸 Ultra-Low Fees = Real Gameplay Loops**
+  Players can mint, fuse, and attempt riddles frequently without worrying about gas costs — essential for a game with evolving NFTs and social chaos mechanics.
+
+* **🧩 EVM Compatibility = Easy Integration**
+  We used standard tools and libraries (like Thirdweb) to build quickly. Etherlink’s EVM compatibility meant we didn’t have to rebuild everything from scratch.
+
+* **🎮 Real-Time Interactivity**
+  Ghost interactions affect the shared world state. Etherlink’s low-latency response times allow for dynamic maps, responsive UI changes, and quick feedback for players.
+
+---
 
